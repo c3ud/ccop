@@ -1,3 +1,5 @@
+#!/usr/local/bin/python
+# -*- coding: utf-8 -*-
 import re
 from libs.estructuras import Pila,Nodo
 
@@ -39,49 +41,16 @@ def evaluar(arbol):
          print "Error en el nombre de la variable: " + arbol.valor
          return 0
 
-def verificar(variable):
-    patronVariable = re.compile('^[a-z][a-zA-Z_$0-9]*$')
-    patronValor = re.compile('^[-+]?[0-9]+$')
-    patronOperador = re.compile('^[+]$|^[*]$|^[-]$|^[/]$|^[=]$')
-    comprobacion = True
 
-    for i in variable:
-        if(patronVariable.match(i)):
-            var.append(i)
-            tokens["Variable"]=var
-        elif(patronValor.match(i)):
-            val.append(i)
-            tokens["Valor"]=val
-        elif(patronOperador.match(i)):
-            op.append(i)
-            tokens["Operador"]=op
-        else:
-            error.append(i)
-            comprobacion = False
-    return comprobacion
 
 if __name__ == "__main__":
     pila = Pila()
-    variables = {}
-    tokens = {}
-    var = []
-    val = []
-    op = []
-    error = []
 
-    archivo = open("Expreciones.txt", "r")
-    for linea in archivo.readlines():
-        print linea.strip("\n").split(" ")
-    exp = linea.strip("\n").split(" ")
 
-    if(verificar(exp)):
-        convertir(exp,pila)
-    else:
-        print "Se han encontrado errores"
-        print "Errores: ",error
-    for t in tokens:
-        print(t," : ",tokens[t])
-    var = []
-    val = []
-    op = []
-    error = []
+
+    print("leyendo")
+    lista = [y.split(" ")  for y in [x[:-1] for x in open("Expreciones.txt","r")]]
+    print(lista)
+
+    for exp in lista:
+        print exp
