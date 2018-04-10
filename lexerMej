@@ -1,0 +1,53 @@
+import ply.lex as lex
+# primero utilizar palabras recervadas al copilador
+tokens = ['IF', 'ELSE', 'WHILE' ,'FOR', 'MINUSTHAN', 'HIGHTHAN',
+'NAME','NUMBER','PLUS','MINUS','TIMES','DIVIDE', 'EQUALS' ]
+
+t_IF = r'SI'
+t_ELSE = r'SINO'	
+
+t_ignore = ' \t'
+t_PLUS = r'\+'
+t_MINUS = r'-'
+t_TIMES = r'\*'
+t_DIVIDE = r'/'
+t_EQUALS = r':='
+
+
+
+
+t_FOR = r'PARA'
+t_WHILE = r'WHILE'
+
+t_HIGHTHAN = r'\>'
+t_MINUSTHAN = r'\<'
+
+
+# Reglas 
+
+
+def t_NAME(t):
+    r'[a-zA-Z][a-zA-Z0-9_]*'
+    print t 
+
+    if t not in ['IF', 'ELSE', 'WHILE' ,'FOR', 'MINUSTHAN', 'HIGHTHAN']:
+       return t 	
+    
+
+def t_NUMBER(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
+
+# Error handling rule
+def t_error(t):
+    print("Illegal character '%s'" % t.value[0])
+    t.lexer.skip(1)
+
+lex.lex() # Build the lexer
+
+lex.input("  > < si SI IF if x = 3 - 4 + 5 * 6")
+while True:
+    tok = lex.token()
+    if not tok: break
+    print str(tok.value) + " - " + str(tok.type)
